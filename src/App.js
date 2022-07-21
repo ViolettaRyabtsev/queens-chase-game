@@ -9,7 +9,7 @@ function App() {
           <Route index element={<Board />} />
         </Route>
       </Routes>
-    </div>
+    </div> 
   );
 }
 
