@@ -13,7 +13,6 @@ const Board = () => {
 
   useEffect(() => {
     setLocalBoard(store.board);
-    console.log(localBoard, "local");
     let matrix = [];
     for (let i = 0; i < localBoard.length; i++) {
       let part = localBoard.slice(0, 4);
@@ -22,32 +21,63 @@ const Board = () => {
       localBoard = newArr;
       matrix.push(part);
     }
-
     setMatrix(matrix);
   }, [localBoard, store.board]);
 
   useEffect(() => {
-    let map = {};
-
-    console.log(arrMatrix, "matrix");
+    let rows = {};
+    let col = {};
 
     for (let i = 0; i < arrMatrix.length; i++) {
       let row = arrMatrix[i];
-      map[i] = row;
+      rows[i] = row;
     }
 
-    function getCol(matrix, col) {
-      var column = [];
-      for (var i = 0; i < matrix.length; i++) {
-        column.push(matrix[i][col]);
-      }
-      return column; // return column data..
-    }
+    col[0] = scanColumBoard(arrMatrix, 0);
+    col[1] = scanColumBoard(arrMatrix, 1);
+    col[2] = scanColumBoard(arrMatrix, 2);
+    col[3] = scanColumBoard(arrMatrix, 3);
 
-    getCol(arrMatrix, 0);
+    console.log(col);
 
-    console.log(getCol(arrMatrix, 0));
+    const boolean = findDiognal(rows);
+    console.log(boolean);
   }, [arrMatrix]);
+
+  // iterate thr matrix for value in column/ helper function
+  const scanColumBoard = (matrix, col) => {
+    var column = [];
+    for (var i = 0; i < matrix.length; i++) {
+      column.push(matrix[i][col]);
+    }
+    return column;
+  };
+
+  const findDiognal = (object) => {
+    let leftIndex = 0;
+
+    let count = 0;
+
+    for (let key in object) {
+      let rightIndex = object[key].length - 1;
+      console.log(rightIndex);
+      if (object[key][leftIndex] === "1") {
+        console.log(count, "count");
+        key++;
+        leftIndex++;
+        count++;
+      }
+      if (object[key][rightIndex] === "1") {
+        key++;
+        rightIndex--;
+        count++;
+      }
+
+      if (count > 2) {
+        return false;
+      }
+    }
+  };
 
   return (
     <>
@@ -57,6 +87,7 @@ const Board = () => {
         ))}
       </div>
       <h3>{store.count}</h3>
+      <div> </div>
     </>
   );
 };
