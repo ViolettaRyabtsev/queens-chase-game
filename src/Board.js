@@ -59,10 +59,10 @@ const Board = () => {
     let count = 0;
 
     for (let key in object) {
-      let rightIndex = object[key].length - 1; 
+      let rightIndex = object[key].length - 1;
 
       console.log(rightIndex);
-      
+
       if (object[key][leftIndex] === "1") {
         console.log(count, "count");
         key++;
