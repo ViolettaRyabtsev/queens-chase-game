@@ -2,8 +2,6 @@ import Square from "./components/Square";
 import "./board.style.scss";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { setCurrentBoard } from "./store/board/board.action";
-import { GiCoinsPile } from "react-icons/gi";
 
 const Board = () => {
   let [localBoard, setLocalBoard] = useState([]);
